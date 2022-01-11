@@ -1,0 +1,25 @@
+body{
+    background-color:azure;
+}
+p{
+    color: red;
+    font-size: large;
+}
+
+.anchor {
+    color: black;
+}
+
+#anchor_bold {
+    color: palevioletred;
+}
+
+@media screen and(max-width: 1000px){
+    body { background-color: pink;}
+    .marks-box {padding: 30px;}
+}
+
+@media screen and(max-width: 600px){
+    body { background-color: lightblue;}
+    .marks-box {padding: 10px;}
+}
