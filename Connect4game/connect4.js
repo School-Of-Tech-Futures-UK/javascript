@@ -37,6 +37,11 @@ function takeTurn(e) {
 }
 
 function Reset(e) {
+    for (let i=1; i<=6; i++){
+        for (let j=1; j<=7; j++){
+            document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
+        }
+    }
     grid = [
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
@@ -44,8 +49,9 @@ function Reset(e) {
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
-    ]
+    ]  
     console.log('You clicked reset')
+    return grid;
 }
 
 
