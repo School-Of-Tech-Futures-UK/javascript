@@ -108,11 +108,10 @@ function RedOrYellow(one, two, three, four){
     //console.log(one,two,three,four)
     if (one.style.backgroundColor=='red' && two.style.backgroundColor=='red' && three.style.backgroundColor=='red' && four.style.backgroundColor == 'red') {
         redWinnerFlag = true
-        nobody = false
     } else if (one.style.backgroundColor=='yellow' && two.style.backgroundColor=='yellow' && three.style.backgroundColor=='yellow' && four.style.backgroundColor == 'yellow'){
         yellowWinnerFlag = true
-        nobody = false
     } else { 
+        nobodyFlag = true
     }
 }
 
@@ -122,13 +121,22 @@ function checkWinner(){
         RedOrYellow(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
         if (redWinnerFlag){
             console.log("Winner red")
+            nobodyFlag = false
+            winner = "red"
         } else if (yellowWinnerFlag){
             console.log("Winner yellow")
+            winner = "yellow"
+            nobodyFlag = false
         } else {
             console.log("nobody")
+            winner = "nobody"
+            nobodyFlag = true
         }
+        const winnerName = document.getElementById("winner-name");
+        winnerName.innerText = winner;
+        const winnerDisplay = document.getElementById("winner-display");
+        winnerDisplay.style.display = "block";
     }
-    
 }
 
 function takeTurn(e) {
@@ -138,16 +146,19 @@ function takeTurn(e) {
     const rowNum = id[3]
     const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, grid)
     console.log(`Lowest available row: ${lowestAvailableRow}`)
-    if (lowestAvailableRow !== null) {
-        turn++
-        if (player1 === "red") {
-            grid[lowestAvailableRow][colNum - 1] = "red"
-            document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
-            player1 = "yellow"
-        } else {
-            grid[lowestAvailableRow][colNum - 1] = "yellow"
-            document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
-            player1 = "red"
+    console.log(nobodyFlag)
+    if (turn < 42 && nobodyFlag==true){
+        if (lowestAvailableRow !== null) {
+            turn++
+            if (player1 === "red") {
+                grid[lowestAvailableRow][colNum - 1] = "red"
+                document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
+                player1 = "yellow"
+            } else {
+                grid[lowestAvailableRow][colNum - 1] = "yellow"
+                document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
+                player1 = "red"
+            }
         }
     }
     checkWinner()
@@ -174,6 +185,13 @@ function Reset(e) {
     ] 
     turn = 0
     player1 = "red"
+    redWinnerFlag = false
+    yellowWinnerFlag = false
+    nobodyFlag = true
+    const winnerName = document.getElementById("winner-name");
+    winnerName.innerText = "";
+    const winnerDisplay = document.getElementById("winner-display");
+    winnerDisplay.style.display = "None";
     console.log('You clicked reset')
 }
 
