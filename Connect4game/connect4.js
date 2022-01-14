@@ -88,7 +88,7 @@ const WinningCombination = [
     ['4','11','18','25'], ['11','18','25','32'], ['18','25','32','39'],
     ['5','12','19','26'], ['12','19','26','33'], ['19','26','33','40'],
     ['6','13','20','27'], ['13','20','27','34'], ['20','27','34','41'],
-    ['7','14','21','28'], ['14','21','28','35'], ['21','28','35','42']
+    ['7','14','21','28'], ['14','21','28','35'], ['21','28','35','42'],
     //lef to right diagonal
     ['4','12','20','28'],
     ['3','11','19','27'], ['11','19','27','35'],
@@ -102,7 +102,7 @@ const WinningCombination = [
     ['6','12','18','24'], ['12','18','24','30'], ['18','24','30','36'],
     ['7','13','19','25'], ['13','19','25','31'], ['19','25','31','37'],
     ['14','20','26','32'], ['20','26','32','38'],
-    ['21','27','33','39']
+    ['21','27','33','39'],
 ]
 function RedOrYellow(one, two, three, four){
     //console.log(one,two,three,four)
@@ -118,6 +118,10 @@ function RedOrYellow(one, two, three, four){
 function checkWinner(){
     for (let combo of WinningCombination){
         //console.log(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
+        console.log("element1: ", combo, document.getElementById(mapBoard.get(combo[0])))
+        console.log("element2: ",document.getElementById(mapBoard.get(combo[1])))
+        console.log("element3: ",document.getElementById(mapBoard.get(combo[2])))
+        console.log("element4: ",document.getElementById(mapBoard.get(combo[3])))
         RedOrYellow(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
         if (redWinnerFlag){
             console.log("Winner red")
