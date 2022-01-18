@@ -1,3 +1,7 @@
+const express = require('express');
+const connect4 = express();
+connect4.use(express.json());
+
 const tag = document.getElementById("header")
 tag.innerText = "connect 4"
 let turn = 0
