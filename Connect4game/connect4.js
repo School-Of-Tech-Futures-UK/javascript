@@ -1,7 +1,3 @@
-const express = require('express');
-const connect4 = express();
-connect4.use(express.json());
-
 const tag = document.getElementById("header")
 tag.innerText = "connect 4"
 let turn = 0
@@ -175,8 +171,6 @@ function takeTurn(e) {
     //console.log(grid)
 }
 
-
-
 function Reset(e) {
     for (let i=1; i<=6; i++){
         for (let j=1; j<=7; j++){
@@ -212,3 +206,47 @@ function getLowestAvailableRowInColumn(ColumnNumber, myGridSoItIs) {
     }
     return null;
 }
+
+const getWinners = async () => {
+    const resp = await fetch('http://localhost:3000/winner_data')
+    return await resp.json()
+}
+
+getWinners().then(
+    json => json.forEach(winner => {
+        const listElement = document.createElement('li')
+        listElement.innerHTML = `Winner: ${winner.name}`
+        document.getElementById('winnerlist').appendChild(listElement)
+    }
+    )
+)
+
+const addWinner = async (e) => {
+    const name = document.getElementById('name').value
+    const color = document.getElementById('color').value
+
+    const winner = JSON.stringify(
+        {
+            name: name,
+            color: color
+        }
+    )
+
+    await fetch('http://localhost:3000/winner_data', {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: winner
+    })
+
+    document.getElementById('winnerlist').innerHTML = ''
+    getWinners().then(
+        json => json.forEach(winner => {
+            const listElement = document.createElement('li')
+            listElement.innerHTML = `Winner: ${winner.name}`
+            document.getElementById('winnerlist').appendChild(listElement)
+        }
+        )
+    )
+}
+
+
