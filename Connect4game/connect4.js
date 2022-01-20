@@ -212,38 +212,51 @@ const getWinners = async () => {
     return await resp.json()
 }
 
-getWinners().then(
-    json => json.forEach(winner => {
-        const listElement = document.createElement('li')
-        listElement.innerHTML = `Winner: ${winner.name}`
-        document.getElementById('winnerlist').appendChild(listElement)
-    }
-    )
-)
-
 const addWinner = async (e) => {
-    const name = document.getElementById('name').value
-    const color = document.getElementById('color').value
+    const name1 = document.getElementById('name1').value
+    const name2 = document.getElementById('name2').value
+    const score = 42 - turn
 
-    const winner = JSON.stringify(
+    const info = JSON.stringify(
         {
-            name: name,
-            color: color
+            name1: name1,
+            name2: name2,
+            winner: winner,
+            score: Number(score)
         }
     )
 
     await fetch('http://localhost:3000/winner_data', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
-        body: winner
+        body: info
     })
+
+    current_winner = await getWinners().then(json => json.pop())
+    if (current_winner.winner==='red'){
+        alert(`${current_winner.name1} (red) wins in ${turn} turns!`)
+    } else if (current_winner.winner==='yellow'){
+        alert(`${current_winner.name2} (yellow) wins in ${turn} turns!`)
+    } else {
+        alert(`Draw!`)
+    }
+
 
     document.getElementById('winnerlist').innerHTML = ''
     getWinners().then(
-        json => json.forEach(winner => {
+        json => json.forEach(info => {
             const listElement = document.createElement('li')
-            listElement.innerHTML = `Winner: ${winner.name}`
-            document.getElementById('winnerlist').appendChild(listElement)
+            //determine winner name
+            if (info.winner==='red'){
+                listElement.innerHTML = `Name: ${info.name1} (red), Score: ${info.score}`
+                document.getElementById('winnerlist').appendChild(listElement)
+            } else if (info.winner==='yellow'){
+                listElement.innerHTML = `Name: ${info.name2} (yellow), Score: ${info.score}`
+                document.getElementById('winnerlist').appendChild(listElement)
+            } else {
+                listElement.innerHTML = `No winner for this game`
+                document.getElementById('winnerlist').appendChild(listElement)
+            }
         }
         )
     )
