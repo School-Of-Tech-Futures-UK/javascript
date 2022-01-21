@@ -1,13 +1,11 @@
 Connect four game
 
 Folder connect4game contains:
--
 connect4.js
 forapi.js
 index.html
 main.css
 data.json
--
 package-lock.json
 package.json
 .eslintrc.js
