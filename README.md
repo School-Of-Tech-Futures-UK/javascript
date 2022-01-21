@@ -1,15 +1,15 @@
 Connect four game
 
 Folder connect4game contains:
--connect4.js
--forapi.js
--index.html
--main.css
--data.json
--package-lock.json
--package.json
--.eslintrc.js
--node_module folder
+1.connect4.js
+2.forapi.js
+3.index.html
+4.main.css
+5.data.json
+6.package-lock.json
+7.package.json
+8..eslintrc.js
+9.node_module folder
 
 How to clone:
 1. Navigate to the repository on the browser
