@@ -123,6 +123,7 @@ function checkWinner(){
         console.log("element3: ",document.getElementById(mapBoard.get(combo[2])))
         console.log("element4: ",document.getElementById(mapBoard.get(combo[3])))
         RedOrYellow(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
+        let winner = ""
         if (redWinnerFlag){
             console.log("Winner red")
             nobodyFlag = false
@@ -147,7 +148,7 @@ function takeTurn(e) {
     const id = e.target.id   // 'row1-col1'   ________x
     // 'rowY-colX' 
     const colNum = id[8]
-    const rowNum = id[3]
+    //const rowNum = id[3]
     const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, grid)
     console.log(`Lowest available row: ${lowestAvailableRow}`)
     console.log(nobodyFlag)
@@ -215,6 +216,7 @@ const getWinners = async () => {
 const addWinner = async (e) => {
     const name1 = document.getElementById('name1').value
     const name2 = document.getElementById('name2').value
+    const winner = winner
     const score = 42 - turn
 
     const info = JSON.stringify(
@@ -232,7 +234,7 @@ const addWinner = async (e) => {
         body: info
     })
 
-    current_winner = await getWinners().then(json => json.pop())
+    const current_winner = await getWinners().then(json => json.pop())
     if (current_winner.winner==='red'){
         alert(`${current_winner.name1} (red) wins in ${turn} turns!`)
     } else if (current_winner.winner==='yellow'){
