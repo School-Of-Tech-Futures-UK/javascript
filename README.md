@@ -1,6 +1,7 @@
 Connect four game
 
 Folder connect4game contains:
+
 1.connect4.js
 2.forapi.js
 3.index.html
