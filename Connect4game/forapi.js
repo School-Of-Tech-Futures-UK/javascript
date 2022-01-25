@@ -4,9 +4,9 @@ forapi.use(express.json());
 var cors = require('cors');
 forapi.use(cors())
 
-const winner_data = []
+//const winner_data = []
 
-/*const fs = require('fs').promises
+const fs = require('fs').promises
 let name1
 let name2
 let winner
@@ -16,60 +16,31 @@ let final = []
 
 async function loadData(){
     const contents = await fs.readFile('./data.json', 'utf-8')
-    const winner_data = JSON.parse(contents)
-    for (let i=0; i<winner_data.length; i++){
-        let game_info = []
-        name1 = winner_data.name1
-        name2 = winner_data.name2
-        winner = winner_data.winner
-        score = winner_data.score
-        game_info.push(name1,name2,winner,score)
-        total_data.push(game_info)
-    }
+    total_data = JSON.parse(contents)
 }
 
 async function saveData(total_data){
-    for (let i=0; i<total_data.length; i++){
-        final.push(
-        {
-            name1: total_data.name1,
-            name2: total_data.name2,
-            winner: total_data.winner,
-            score: total_data.score
-        })
-    }
-    const contents = JSON.stringify(final)
-    await fs.appendFile('./data.json', contents);
+    const contents = JSON.stringify(total_data)
+    await fs.writeFile('./data.json', contents);
 }
 
-loadData()
-
-forapi.get('/winner_data', (req, res) => {
-    res.json(winner_data)
+forapi.get('/winner_get_data', (req, res) => {
+    res.json(total_data)
 })
 
 forapi.post('/winner_data', (req, res) => {
-    winner_data.push(req.body)
-    console.log(req)
-    res.status(200)
-    //res.send('Done')
-    //res.send({winner_data:winner_data})
-    //saveData(winner_data)
-    res.send(final)
+    total_data.push(req.body)
+    console.log(req.body)
+    //res.status("Ok")
     saveData(total_data)
-})*/
+    res.send('ok')
 
-
-forapi.get('/winner_data', (req, res) => {
-    res.json(winner_data)
-})
-
-forapi.post('/winner_data', (req, res) => {
-    winner_data.push(req.body)
-    console.log(req)
-    res.status(200)
-    res.send('Done')
+    //saveData(total_data)
 })
 
 
-forapi.listen(3000)
+forapi.listen(3000, async function() {
+    console.log('im reading')
+    await loadData()
+    console.log(total_data)
+})

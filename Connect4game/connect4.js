@@ -1,5 +1,6 @@
-const tag = document.getElementById("header")
-tag.innerText = "connect 4"
+//this is connect 4.js
+document.getElementById("header").innerText = "connect 4"
+//tag1.innerText = "connect 4"
 let turn = 0
 let redWinnerFlag = false
 let yellowWinnerFlag = false
@@ -123,7 +124,6 @@ function checkWinner(){
         console.log("element3: ",document.getElementById(mapBoard.get(combo[2])))
         console.log("element4: ",document.getElementById(mapBoard.get(combo[3])))
         RedOrYellow(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
-        let winner = ""
         if (redWinnerFlag){
             console.log("Winner red")
             nobodyFlag = false
@@ -148,7 +148,7 @@ function takeTurn(e) {
     const id = e.target.id   // 'row1-col1'   ________x
     // 'rowY-colX' 
     const colNum = id[8]
-    //const rowNum = id[3]
+    const rowNum = id[3]
     const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, grid)
     console.log(`Lowest available row: ${lowestAvailableRow}`)
     console.log(nobodyFlag)
@@ -209,21 +209,27 @@ function getLowestAvailableRowInColumn(ColumnNumber, myGridSoItIs) {
 }
 
 const getWinners = async () => {
-    const resp = await fetch('http://localhost:3000/winner_data')
+    console.log("in here get winners")
+    const resp = await fetch('http://localhost:3000/winner_get_data')
     return await resp.json()
+}
+
+function test(e){
+    document.getElementById('winnerlist').innerHTML = 'this is winner list element'
+    alert(`test`)
 }
 
 const addWinner = async (e) => {
     const name1 = document.getElementById('name1').value
     const name2 = document.getElementById('name2').value
-    const winner = winner
+    //let winner_color = winner 
     const score = 42 - turn
 
     const info = JSON.stringify(
         {
             name1: name1,
             name2: name2,
-            winner: winner,
+            winner: "red",
             score: Number(score)
         }
     )
@@ -234,7 +240,13 @@ const addWinner = async (e) => {
         body: info
     })
 
-    const current_winner = await getWinners().then(json => json.pop())
+    // getWinners().then(json => json.pop())
+    // const json = await getWinners()
+    // let current_winner = await json.pop()
+
+    //let current_winner = await getWinners().then(json => json.pop())
+    const json = await getWinners()
+    let current_winner = json.pop()
     if (current_winner.winner==='red'){
         alert(`${current_winner.name1} (red) wins in ${turn} turns!`)
     } else if (current_winner.winner==='yellow'){
@@ -244,9 +256,12 @@ const addWinner = async (e) => {
     }
 
 
-    document.getElementById('winnerlist').innerHTML = ''
+   
     getWinners().then(
-        json => json.forEach(info => {
+        json => {
+            document.getElementById('winnerlist').innerHTML = 'this is winner list element'
+            json.forEach(info => {
+                console.log(`adding ${info}`)
             const listElement = document.createElement('li')
             //determine winner name
             if (info.winner==='red'){
@@ -259,9 +274,14 @@ const addWinner = async (e) => {
                 listElement.innerHTML = `No winner for this game`
                 document.getElementById('winnerlist').appendChild(listElement)
             }
+            console.log('testing winner list')
         }
+        
         )
-    )
+        debugger;
+        })
+
+    //alert(`${document.getElementById('winnerlist')}`)
 }
 
 
