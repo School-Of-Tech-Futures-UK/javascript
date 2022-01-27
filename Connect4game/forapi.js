@@ -31,11 +31,10 @@ forapi.get('/winner_get_data', (req, res) => {
 forapi.post('/winner_data', (req, res) => {
     total_data.push(req.body)
     console.log(req.body)
-    //res.status("Ok")
+    saveData(total_data)
+    res.status(200)
     saveData(total_data)
     res.send('ok')
-
-    //saveData(total_data)
 })
 
 

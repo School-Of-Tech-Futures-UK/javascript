@@ -2,10 +2,11 @@
 document.getElementById("header").innerText = "connect 4"
 //tag1.innerText = "connect 4"
 let turn = 0
-let redWinnerFlag = false
-let yellowWinnerFlag = false
-let nobodyFlag = true
+//let redWinnerFlag = false
+//let yellowWinnerFlag = false
+//let nobodyFlag = true
 let player1 = "red"
+let winner = ""
 let grid = [
     [null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null],
@@ -26,53 +27,61 @@ let grid = [
 
 const mapBoard = new Map()
 //row1
-mapBoard.set('1',`row1-col1`)
-mapBoard.set('2',`row1-col2`)
-mapBoard.set('3',`row1-col3`)
-mapBoard.set('4',`row1-col4`)
-mapBoard.set('5',`row1-col5`)
-mapBoard.set('6',`row1-col6`)
-mapBoard.set('7',`row1-col7`)
+
+mapBoard.set('1',{"i":0,"j":0})
+mapBoard.set('2',{"i":0,"j":1})
+mapBoard.set('3',{"i":0,"j":2})
+mapBoard.set('4',{"i":0,"j":3})
+mapBoard.set('5',{"i":0,"j":4})
+mapBoard.set('6',{"i":0,"j":5})
+mapBoard.set('7',{"i":0,"j":6})
 //row2
-mapBoard.set('8',`row2-col1`)
-mapBoard.set('9',`row2-col2`)
-mapBoard.set('10',`row2-col3`)
-mapBoard.set('11',`row2-col4`)
-mapBoard.set('12',`row2-col5`)
-mapBoard.set('13',`row2-col6`)
-mapBoard.set('14',`row2-col7`)
+
+mapBoard.set('8',{"i":1,"j":0})
+mapBoard.set('9',{"i":1,"j":1})
+mapBoard.set('10',{"i":1,"j":2})
+mapBoard.set('11',{"i":1,"j":3})
+mapBoard.set('12',{"i":1,"j":4})
+mapBoard.set('13',{"i":1,"j":5})
+mapBoard.set('14',{"i":1,"j":6})
 //row3
-mapBoard.set('15',`row3-col1`)
-mapBoard.set('16',`row3-col2`)
-mapBoard.set('17',`row3-col3`)
-mapBoard.set('18',`row3-col4`)
-mapBoard.set('19',`row3-col5`)
-mapBoard.set('20',`row3-col6`)
-mapBoard.set('21',`row3-col7`)
+
+mapBoard.set('15',{"i":2,"j":0})
+mapBoard.set('16',{"i":2,"j":1})
+mapBoard.set('17',{"i":2,"j":2})
+mapBoard.set('18',{"i":2,"j":3})
+mapBoard.set('19',{"i":2,"j":4})
+mapBoard.set('20',{"i":2,"j":5})
+mapBoard.set('21',{"i":2,"j":6})
 //row4
-mapBoard.set('22',`row4-col1`)
-mapBoard.set('23',`row4-col2`)
-mapBoard.set('24',`row4-col3`)
-mapBoard.set('25',`row4-col4`)
-mapBoard.set('26',`row4-col5`)
-mapBoard.set('27',`row4-col6`)
-mapBoard.set('28',`row4-col7`)
+
+mapBoard.set('22',{"i":3,"j":0})
+mapBoard.set('23',{"i":3,"j":1})
+mapBoard.set('24',{"i":3,"j":2})
+mapBoard.set('25',{"i":3,"j":3})
+mapBoard.set('26',{"i":3,"j":4})
+mapBoard.set('27',{"i":3,"j":5})
+mapBoard.set('28',{"i":3,"j":6})
 //row5
-mapBoard.set('29',`row5-col1`)
-mapBoard.set('30',`row5-col2`)
-mapBoard.set('31',`row5-col3`)
-mapBoard.set('32',`row5-col4`)
-mapBoard.set('33',`row5-col5`)
-mapBoard.set('34',`row5-col6`)
-mapBoard.set('35',`row5-col7`)
+
+mapBoard.set('29',{"i":4,"j":0})
+mapBoard.set('30',{"i":4,"j":1})
+mapBoard.set('31',{"i":4,"j":2})
+mapBoard.set('32',{"i":4,"j":3})
+mapBoard.set('33',{"i":4,"j":4})
+mapBoard.set('34',{"i":4,"j":5})
+mapBoard.set('35',{"i":4,"j":6})
 //row6
-mapBoard.set('36',`row6-col1`)
-mapBoard.set('37',`row6-col2`)
-mapBoard.set('38',`row6-col3`)
-mapBoard.set('39',`row6-col4`)
-mapBoard.set('40',`row6-col5`)
-mapBoard.set('41',`row6-col6`)
-mapBoard.set('42',`row6-col7`)
+
+mapBoard.set('36',{"i":5,"j":0})
+mapBoard.set('37',{"i":5,"j":1})
+mapBoard.set('38',{"i":5,"j":2})
+mapBoard.set('39',{"i":5,"j":3})
+mapBoard.set('40',{"i":5,"j":4})
+mapBoard.set('41',{"i":5,"j":5})
+mapBoard.set('42',{"i":5,"j":6})
+
+
 
 const WinningCombination = [
     //horizontal
@@ -105,71 +114,86 @@ const WinningCombination = [
     ['14','20','26','32'], ['20','26','32','38'],
     ['21','27','33','39'],
 ]
-function RedOrYellow(one, two, three, four){
-    //console.log(one,two,three,four)
-    if (one.style.backgroundColor=='red' && two.style.backgroundColor=='red' && three.style.backgroundColor=='red' && four.style.backgroundColor == 'red') {
-        redWinnerFlag = true
-    } else if (one.style.backgroundColor=='yellow' && two.style.backgroundColor=='yellow' && three.style.backgroundColor=='yellow' && four.style.backgroundColor == 'yellow'){
-        yellowWinnerFlag = true
-    } else { 
-        nobodyFlag = true
-    }
+
+let state = {
+    "grid" : grid,
+    "turn" : turn,
+    "winner" : winner,
+    "player1" : player1,
+    "nobody" : true,
 }
 
-function checkWinner(){
+function RedOrYellow(one, two, three, four){
+    let winnerOf4 = ""
+    if (one=='red' && two=='red' && three=='red' && four== 'red') {
+        winnerOf4 = "red"
+    } else if (one=='yellow' && two=='yellow' && three=='yellow' && four== 'yellow'){
+        winnerOf4 = "yellow"
+    } else { 
+        winnerOf4 = "nobody"
+    }
+    return winnerOf4
+}
+
+function checkWinner(board){
+    let final_winner = ""
     for (let combo of WinningCombination){
-        //console.log(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
-        console.log("element1: ", combo, document.getElementById(mapBoard.get(combo[0])))
-        console.log("element2: ",document.getElementById(mapBoard.get(combo[1])))
-        console.log("element3: ",document.getElementById(mapBoard.get(combo[2])))
-        console.log("element4: ",document.getElementById(mapBoard.get(combo[3])))
-        RedOrYellow(document.getElementById(mapBoard.get(combo[0])),document.getElementById(mapBoard.get(combo[1])),document.getElementById(mapBoard.get(combo[2])),document.getElementById(mapBoard.get(combo[3])))
-        if (redWinnerFlag){
+        let one = mapBoard.get(combo[0])
+        let two = mapBoard.get(combo[1])
+        let three = mapBoard.get(combo[2])
+        let four = mapBoard.get(combo[3])
+        final_winner = RedOrYellow(board[one.i][one.j], board[two.i][two.j], board[three.i][three.j], board[four.i][four.j])
+        if (final_winner === "red"){
             console.log("Winner red")
-            nobodyFlag = false
-            winner = "red"
-        } else if (yellowWinnerFlag){
+            return final_winner
+        } else if (final_winner === "yellow"){
             console.log("Winner yellow")
-            winner = "yellow"
-            nobodyFlag = false
+            return final_winner
         } else {
             console.log("nobody")
-            winner = "nobody"
-            nobodyFlag = true
         }
-        const winnerName = document.getElementById("winner-name");
-        winnerName.innerText = winner;
-        const winnerDisplay = document.getElementById("winner-display");
-        winnerDisplay.style.display = "block";
+    } 
+    return final_winner
+}
+
+function getLowestAvailableRowInColumn(ColumnNumber, grid) {
+    for (let i = 5; i >= 0; i--) {
+        if (grid[i][ColumnNumber - 1] === null) {
+            return i
+        }
     }
+    return null;
 }
 
 function takeTurn(e) {
-    const id = e.target.id   // 'row1-col1'   ________x
-    // 'rowY-colX' 
+    console.log(state)
+    const id = e.target.id 
     const colNum = id[8]
-    const rowNum = id[3]
-    const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, grid)
-    console.log(`Lowest available row: ${lowestAvailableRow}`)
-    console.log(nobodyFlag)
-    if (turn < 42 && nobodyFlag==true){
+    const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, state.grid)
+    if (state.turn < 42 && state.nobody==true){
         if (lowestAvailableRow !== null) {
-            turn++
-            if (player1 === "red") {
-                grid[lowestAvailableRow][colNum - 1] = "red"
+            state.turn++
+            if (state.player1 === "red") {
+                state.grid[lowestAvailableRow][colNum - 1] = "red"
                 document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
-                player1 = "yellow"
+                state.player1 = "yellow"
             } else {
-                grid[lowestAvailableRow][colNum - 1] = "yellow"
+                state.grid[lowestAvailableRow][colNum - 1] = "yellow"
                 document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
-                player1 = "red"
+                state.player1 = "red"
             }
         }
     }
-    checkWinner()
+    const final_winner = checkWinner(state.grid)
+    state.winner = final_winner
+    if (state.winner === "red" || state.winner === "yellow"){
+        state.nobody = false
+    }
+    const winnerName = document.getElementById("winner-name");
+    winnerName.innerText = state.winner;
+    const winnerDisplay = document.getElementById("winner-display");
+    winnerDisplay.style.display = "block";
     console.log(`You clicked column ${colNum}`)
-    console.log(`Turn number ${turn}`)
-    //console.log(grid)
 }
 
 function Reset(e) {
@@ -178,7 +202,7 @@ function Reset(e) {
             document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
         }
     }
-    grid = [
+    state.grid = [
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
@@ -186,27 +210,15 @@ function Reset(e) {
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
     ] 
-    turn = 0
-    player1 = "red"
-    redWinnerFlag = false
-    yellowWinnerFlag = false
-    nobodyFlag = true
+    state.turn = 0
+    state.player1 = "red"
+    state.winner = ""
+    state.nobody = true
     const winnerName = document.getElementById("winner-name");
     winnerName.innerText = "";
     const winnerDisplay = document.getElementById("winner-display");
     winnerDisplay.style.display = "None";
     console.log('You clicked reset')
-}
-
-
-function getLowestAvailableRowInColumn(ColumnNumber, myGridSoItIs) {
-    for (let i = 5; i >= 0; i--) {
-        if (myGridSoItIs[i][ColumnNumber - 1] === null) {
-            return i
-        }
-    }
-    return null;
-}
 
 const getWinners = async () => {
     console.log("in here get winners")
@@ -229,7 +241,7 @@ const addWinner = async (e) => {
         {
             name1: name1,
             name2: name2,
-            winner: "red",
+            winner: state.winner,
             score: Number(score)
         }
     )
@@ -240,11 +252,6 @@ const addWinner = async (e) => {
         body: info
     })
 
-    // getWinners().then(json => json.pop())
-    // const json = await getWinners()
-    // let current_winner = await json.pop()
-
-    //let current_winner = await getWinners().then(json => json.pop())
     const json = await getWinners()
     let current_winner = json.pop()
     if (current_winner.winner==='red'){
@@ -259,7 +266,7 @@ const addWinner = async (e) => {
    
     getWinners().then(
         json => {
-            document.getElementById('winnerlist').innerHTML = 'this is winner list element'
+            document.getElementById('winnerlist').innerHTML = ''
             json.forEach(info => {
                 console.log(`adding ${info}`)
             const listElement = document.createElement('li')
@@ -278,10 +285,8 @@ const addWinner = async (e) => {
         }
         
         )
-        debugger;
         })
 
-    //alert(`${document.getElementById('winnerlist')}`)
 }
 
 
