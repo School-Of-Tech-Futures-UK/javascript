@@ -1,10 +1,8 @@
 //this is connect 4.js
-document.getElementById("header").innerText = "connect 4"
+document.getElementById("header").innerText = "Connect Four Game by Anna"
 //tag1.innerText = "connect 4"
+const turn_beep = document.getElementById("myAudio")
 let turn = 0
-//let redWinnerFlag = false
-//let yellowWinnerFlag = false
-//let nobodyFlag = true
 let player1 = "red"
 let winner = ""
 let grid = [
@@ -166,7 +164,7 @@ function getLowestAvailableRowInColumn(ColumnNumber, grid) {
 }
 
 function takeTurn(e) {
-    console.log(state)
+    turn_beep.play()
     const id = e.target.id 
     const colNum = id[8]
     const lowestAvailableRow = getLowestAvailableRowInColumn(colNum, state.grid)
@@ -175,11 +173,14 @@ function takeTurn(e) {
             state.turn++
             if (state.player1 === "red") {
                 state.grid[lowestAvailableRow][colNum - 1] = "red"
-                document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
+                console.log(lowestAvailableRow,colNum)
+                //document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
+                document.querySelector('#column-'+(colNum-1)+' .row-'+lowestAvailableRow+' circle').setAttribute('class','red')
                 state.player1 = "yellow"
             } else {
                 state.grid[lowestAvailableRow][colNum - 1] = "yellow"
-                document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
+                //document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
+                document.querySelector('#column-'+(colNum-1)+' .row-'+lowestAvailableRow+' circle').setAttribute('class','yellow')
                 state.player1 = "red"
             }
         }
@@ -197,9 +198,10 @@ function takeTurn(e) {
 }
 
 function Reset(e) {
-    for (let i=1; i<=6; i++){
-        for (let j=1; j<=7; j++){
-            document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
+    for (let i=0; i<=5; i++){
+        for (let j=0; j<=6; j++){
+           // document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
+           document.querySelector('#column-'+(j)+' .row-'+i+' circle').setAttribute('class','free')
         }
     }
     state.grid = [
@@ -287,6 +289,4 @@ const addWinner = async (e) => {
         )
         })
 
-}
-
-
+}}

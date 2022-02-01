@@ -12,10 +12,15 @@
 </head>
 
 <body>
+
+    <audio id="myAudio">
+        <source src="beep.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <h1 id="header"> </h1>
-    Connect Four Game
     <p id="winner-display">The winner is <span id="winner-name"></span></p>
-    <div id="connect4Board">
+    <!-- <div class="grid" id="connect4Board">
         <div class="row">
             <div class="col" id="row1-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
             <div class="col" id="row1-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
@@ -25,7 +30,7 @@
             <div class="col" id="row1-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
             <div class="col" id="row1-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
         </div>
-        <div class=" row">
+        <div class="row">
             <div class="col" id="row2-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
             <div class="col" id="row2-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
             <div class="col" id="row2-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
@@ -44,33 +49,178 @@
             <div class="col" id="row3-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
         </div>
         <div class="row">
-            <div class=" col" id="row4-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row4-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row4-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
         </div>
         <div class="row">
-            <div class=" col" id="row5-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row5-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row5-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
         </div>
         <div class="row">
-            <div class=" col" id="row6-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class=" col" id="row6-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+            <div class="col" id="row6-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
+        </div>
+    </div> -->
+
+    <div id="connect4Board">
+        <div class="column" id="column-0" data-x="0">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col1" onClick="takeTurn(event);" />
+            </svg> 
+            <svg height="100" width="100" class="row-1" >
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col1" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2" >
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col1" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3" >
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col1" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4" >
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col1" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5" >
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col1" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column"  id="column-1" data-x="1">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col2" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col2" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col2" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col2" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col2" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col2" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column" id="column-2" data-x="2">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col3" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col3" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col3" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col3" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col3" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col3" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column" id="column-3" data-x="3">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col4" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col4" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col4" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col4" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col4" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col4" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column" id="column-4" data-x="4">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col5" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col5" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col5" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col5" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col5" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col5" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column" id="column-5" data-x="5">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col6" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col6" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col6" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col6" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col6" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col6" onClick="takeTurn(event);"/>
+            </svg> 
+        </div>
+        <div class="column" id="column-6" data-x="6">
+            <svg height="100" width="100" class="row-0">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row6-col7" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-1">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row5-col7" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-2">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row4-col7" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-3">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row3-col7" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-4">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row2-col7" onClick="takeTurn(event);"/>
+            </svg> 
+            <svg height="100" width="100" class="row-5">
+              <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" id="row1-col7" onClick="takeTurn(event);"/>
+            </svg> 
         </div>
     </div>
+
+
     <div>
         <button type="button" onclick="Reset(event);">Reset</button>
     </div>

@@ -1,11 +1,33 @@
-.mydiv{
-    border: 0.5px solid black; 
-    text-align: center;
+
+#connect4Board {
+	background: #0074B3;
+	width: 730px;
+	cursor: pointer;
 }
 
-.jiaqirounded{
-    border-radius: 25px
+.column {
+	width: 100px;
+	display: inline-block;
 }
+
+.column:hover  circle.free{
+	fill: #D5E4ED;
+}
+
+circle.free {
+	fill: #fff;
+}
+
+circle.red {
+	fill: #D50000;
+}
+
+circle.yellow {
+	fill: #DAD400;
+}
+
+
+
 
 
 
