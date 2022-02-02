@@ -20,62 +20,6 @@
 
     <h1 id="header"> </h1>
     <p id="winner-display">The winner is <span id="winner-name"></span></p>
-    <!-- <div class="grid" id="connect4Board">
-        <div class="row">
-            <div class="col" id="row1-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row1-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-        <div class="row">
-            <div class="col" id="row2-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row2-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-        <div class="row">
-            <div class="col" id="row3-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row3-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-        <div class="row">
-            <div class="col" id="row4-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row4-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-        <div class="row">
-            <div class="col" id="row5-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row5-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-        <div class="row">
-            <div class="col" id="row6-col1" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col2" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col3" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col4" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col5" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col6" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-            <div class="col" id="row6-col7" onClick="takeTurn(event);" style="border: solid;"> <p> </p> </div>
-        </div>
-    </div> -->
 
     <div id="connect4Board">
         <div class="column" id="column-0" data-x="0">
@@ -220,12 +164,13 @@
         </div>
     </div>
 
-
     <div>
-        <button type="button" onclick="Reset(event);">Reset</button>
+        <p></p>
+        <button type="button" id="resetButton" onclick="Reset(event);">Reset</button>
     </div>
+
     <ul id="winnerlist"> </ul>
-    <table>
+    <table  id="Names">
         <tr>
             <td>Name of red player:</td>
             <td><input type="text" id="name1" /></td>
@@ -236,9 +181,11 @@
         </tr>
         <tr>
             <td></td>
-            <td><button onclick="addWinner(event)">Add Winner!</button></td>
+            <td><button id="winnerButton" type="button" onclick="addWinner(event);">Add Winner!</button></td>
         </tr>
     </table>
+
     <script src='./connect4.js'></script>
+    <script src='./logic.js'></script>
 </body>
 </html>

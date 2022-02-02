@@ -1,7 +1,9 @@
-//this is connect 4.js
+//const logicModule = require('logic.js')
+
 document.getElementById("header").innerText = "Connect Four Game by Anna"
-//tag1.innerText = "connect 4"
 const turn_beep = document.getElementById("myAudio")
+document.getElementById("name1").disabled = true
+document.getElementById("name2").disabled = true
 let turn = 0
 let player1 = "red"
 let winner = ""
@@ -78,8 +80,6 @@ mapBoard.set('39',{"i":5,"j":3})
 mapBoard.set('40',{"i":5,"j":4})
 mapBoard.set('41',{"i":5,"j":5})
 mapBoard.set('42',{"i":5,"j":6})
-
-
 
 const WinningCombination = [
     //horizontal
@@ -163,7 +163,25 @@ function getLowestAvailableRowInColumn(ColumnNumber, grid) {
     return null;
 }
 
-function takeTurn(e) {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve,ms))
+}
+
+async function triggerAnimation(ColumnNumber, row, grid, player1){
+    for (let i = 0; i <= row; i++) {
+        await sleep (200)
+        if (grid[i][ColumnNumber - 1] === null && player1 ==='red') {
+            document.querySelector('#column-'+(ColumnNumber-1)+' .row-'+i+' circle').setAttribute('class','redanim')
+        } else if (grid[i][ColumnNumber - 1] === null && player1 ==='yellow') {
+            document.querySelector('#column-'+(ColumnNumber-1)+' .row-'+i+' circle').setAttribute('class','yellowanim')
+        }
+        if(i>0){
+            document.querySelector('#column-'+(ColumnNumber-1)+' .row-'+(i-1)+' circle').setAttribute('class','free')
+        }
+    }
+}
+
+async function takeTurn(e) {
     turn_beep.play()
     const id = e.target.id 
     const colNum = id[8]
@@ -171,15 +189,15 @@ function takeTurn(e) {
     if (state.turn < 42 && state.nobody==true){
         if (lowestAvailableRow !== null) {
             state.turn++
+            triggerAnimation(colNum, lowestAvailableRow-1, state.grid, state.player1)
             if (state.player1 === "red") {
+                await sleep(200*(lowestAvailableRow+1))
                 state.grid[lowestAvailableRow][colNum - 1] = "red"
-                console.log(lowestAvailableRow,colNum)
-                //document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'red';
                 document.querySelector('#column-'+(colNum-1)+' .row-'+lowestAvailableRow+' circle').setAttribute('class','red')
                 state.player1 = "yellow"
             } else {
+                await sleep(200*(lowestAvailableRow+1))
                 state.grid[lowestAvailableRow][colNum - 1] = "yellow"
-                //document.getElementById(`row${lowestAvailableRow + 1}-col${colNum}`).style.backgroundColor = 'yellow';
                 document.querySelector('#column-'+(colNum-1)+' .row-'+lowestAvailableRow+' circle').setAttribute('class','yellow')
                 state.player1 = "red"
             }
@@ -189,6 +207,8 @@ function takeTurn(e) {
     state.winner = final_winner
     if (state.winner === "red" || state.winner === "yellow"){
         state.nobody = false
+        document.getElementById("name1").disabled = false
+        document.getElementById("name2").disabled = false
     }
     const winnerName = document.getElementById("winner-name");
     winnerName.innerText = state.winner;
@@ -198,6 +218,9 @@ function takeTurn(e) {
 }
 
 function Reset(e) {
+    document.getElementById("name1").disabled = true
+    document.getElementById("name2").disabled = true
+
     for (let i=0; i<=5; i++){
         for (let j=0; j<=6; j++){
            // document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
@@ -221,6 +244,7 @@ function Reset(e) {
     const winnerDisplay = document.getElementById("winner-display");
     winnerDisplay.style.display = "None";
     console.log('You clicked reset')
+}
 
 const getWinners = async () => {
     console.log("in here get winners")
@@ -228,15 +252,9 @@ const getWinners = async () => {
     return await resp.json()
 }
 
-function test(e){
-    document.getElementById('winnerlist').innerHTML = 'this is winner list element'
-    alert(`test`)
-}
-
 const addWinner = async (e) => {
     const name1 = document.getElementById('name1').value
-    const name2 = document.getElementById('name2').value
-    //let winner_color = winner 
+    const name2 = document.getElementById('name2').value 
     const score = 42 - turn
 
     const info = JSON.stringify(
@@ -264,7 +282,6 @@ const addWinner = async (e) => {
         alert(`Draw!`)
     }
 
-
    
     getWinners().then(
         json => {
@@ -289,4 +306,13 @@ const addWinner = async (e) => {
         )
         })
 
-}}
+}
+
+/*module.exports = {
+    sleep,
+    triggerAnimation,
+    takeTurn,
+    Reset,
+    getWinners,
+    addWinner
+}*/

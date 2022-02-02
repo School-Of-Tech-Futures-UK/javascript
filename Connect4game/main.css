@@ -1,9 +1,15 @@
+#winner-display {
+    display: none;
+    color: blue;
+    font-size: 30px;
+    font-weight: bold;
+}
 
 #connect4Board {
 	background: #0074B3;
 	width: 730px;
 	cursor: pointer;
-}
+} 
 
 .column {
 	width: 100px;
@@ -19,13 +25,59 @@ circle.free {
 }
 
 circle.red {
-	fill: #D50000;
+	fill: #D50000 !important;
+}
+
+circle.redanim {
+    animation-name: redDrop;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards
 }
 
 circle.yellow {
-	fill: #DAD400;
+	fill: #DAD400 !important;
 }
 
+circle.yellowanim {
+    animation-name: yellowDrop;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards
+}
+
+@keyframes redDrop {
+    0% {fill: white;}
+    50% {fill: red;}
+    100% {fill: white;}
+}
+
+@keyframes yellowDrop {
+    0% {fill: white;}
+    50% {fill: yellow;}
+    100% {fill: white;}
+}
+
+
+#resetButton {
+    background-color: blue;
+    border-radius: 6px;
+    color: white;
+    height: 44px;
+    width: 80px;
+    text-align: center
+}
+
+#winnerButton {
+    background-color: blue;
+    border-radius: 6px;
+    color: white;
+    height: 44px;
+    width: 120px;
+    text-align: center
+}
+
+#Names {
+    font-weight: bold;
+}
 
 
 

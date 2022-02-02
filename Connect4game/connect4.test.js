@@ -14,7 +14,7 @@ describe('When calling RedOrYellowFunction', () => {
         expect(actualOutput).toStrictEqual(expectedOutput);
     } )
 
-    test('For the case when all tiles are yellow',() => {
+    /*test('For the case when all tiles are yellow',() => {
         //Arrange
         const one = "yellow"
         const two = "yellow"
@@ -43,7 +43,7 @@ describe('When calling RedOrYellowFunction', () => {
            actualOutput = RedOrYellow(one,two,three,four)
            expect(actualOutput).toBe(expectedOutput)
         } )
-    } )
+    } )*/
 
 
 })
