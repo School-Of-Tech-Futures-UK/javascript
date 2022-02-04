@@ -1,8 +1,13 @@
 Connect four game
 
 Folder connect4game contains:
+beep.mp3;
+winning_sound.mp3;
 connect4.js; 
 forapi.js; 
+forapi.test.js;
+logic.js;
+logic.test.ls;
 index.html; 
 main.css; 
 data.json; 
@@ -30,3 +35,4 @@ How to play connect 4:
 4. Pop-up window with winner for recent game will apper -> click 'OK'
 5. High-score table will appear for all games played for this session
 6. Press 'Restart' button
+
