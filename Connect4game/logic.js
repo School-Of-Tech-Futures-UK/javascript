@@ -40,8 +40,10 @@ function getLowestAvailableRowInColumn(ColumnNumber, grid) {
     return null;
 }
 
-/*module.exports = {
-    RedOrYellow,
-    checkWinner,
-    getLowestAvailableRowInColumn
-}*/
+if(typeof module!='undefined'){
+    module.exports = {
+        RedOrYellow,
+        checkWinner,
+        getLowestAvailableRowInColumn
+    }
+}

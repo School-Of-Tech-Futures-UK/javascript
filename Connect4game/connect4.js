@@ -1,9 +1,11 @@
 //const logicModule = require('logic.js')
 
 document.getElementById("header").innerText = "Connect Four Game by Anna"
-const turn_beep = document.getElementById("myAudio")
+const turn_beep = document.getElementById("beepSound")
+const turn_win_sound = document.getElementById("winningSound")
 document.getElementById("name1").disabled = true
 document.getElementById("name2").disabled = true
+let current_winner=""
 let turn = 0
 let player1 = "red"
 let winner = ""
@@ -121,48 +123,6 @@ let state = {
     "nobody" : true,
 }
 
-function RedOrYellow(one, two, three, four){
-    let winnerOf4 = ""
-    if (one=='red' && two=='red' && three=='red' && four== 'red') {
-        winnerOf4 = "red"
-    } else if (one=='yellow' && two=='yellow' && three=='yellow' && four== 'yellow'){
-        winnerOf4 = "yellow"
-    } else { 
-        winnerOf4 = "nobody"
-    }
-    return winnerOf4
-}
-
-function checkWinner(board){
-    let final_winner = ""
-    for (let combo of WinningCombination){
-        let one = mapBoard.get(combo[0])
-        let two = mapBoard.get(combo[1])
-        let three = mapBoard.get(combo[2])
-        let four = mapBoard.get(combo[3])
-        final_winner = RedOrYellow(board[one.i][one.j], board[two.i][two.j], board[three.i][three.j], board[four.i][four.j])
-        if (final_winner === "red"){
-            console.log("Winner red")
-            return final_winner
-        } else if (final_winner === "yellow"){
-            console.log("Winner yellow")
-            return final_winner
-        } else {
-            console.log("nobody")
-        }
-    } 
-    return final_winner
-}
-
-function getLowestAvailableRowInColumn(ColumnNumber, grid) {
-    for (let i = 5; i >= 0; i--) {
-        if (grid[i][ColumnNumber - 1] === null) {
-            return i
-        }
-    }
-    return null;
-}
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve,ms))
 }
@@ -221,9 +181,10 @@ function Reset(e) {
     document.getElementById("name1").disabled = true
     document.getElementById("name2").disabled = true
 
+    document.getElementById('winnerlist').innerHTML = ''
+
     for (let i=0; i<=5; i++){
         for (let j=0; j<=6; j++){
-           // document.getElementById(`row${i}-col${j}`).style.backgroundColor = 'white'
            document.querySelector('#column-'+(j)+' .row-'+i+' circle').setAttribute('class','free')
         }
     }
@@ -249,13 +210,17 @@ function Reset(e) {
 const getWinners = async () => {
     console.log("in here get winners")
     const resp = await fetch('http://localhost:3000/winner_get_data')
-    return await resp.json()
+    let temp = await resp.json()
+    current_winner = temp.pop()
+    temp.sort((a,b) => Number(b.score) - Number(a.score))
+    temp = temp.slice(0,10)
+    return temp
 }
 
 const addWinner = async (e) => {
     const name1 = document.getElementById('name1').value
     const name2 = document.getElementById('name2').value 
-    const score = 42 - turn
+    const score = 42 - state.turn
 
     const info = JSON.stringify(
         {
@@ -272,22 +237,25 @@ const addWinner = async (e) => {
         body: info
     })
 
-    const json = await getWinners()
-    let current_winner = json.pop()
-    if (current_winner.winner==='red'){
-        alert(`${current_winner.name1} (red) wins in ${turn} turns!`)
-    } else if (current_winner.winner==='yellow'){
-        alert(`${current_winner.name2} (yellow) wins in ${turn} turns!`)
+    //let json = await getWinners()
+    //let current_winner = json.pop()
+    if (state.winner==='red'){
+        turn_win_sound.play()
+        alert(`${name1} (red) wins in ${state.turn} turns!`)
+    } else if (state.winner==='yellow'){
+        turn_win_sound.play()
+        alert(`${name2} (yellow) wins in ${state.turn} turns!`)
     } else {
         alert(`Draw!`)
     }
 
-   
+    /*json.sort((a,b) => Number(a.score) - Number(b.score))
+    json = json.slice(0,10)
+    console.log(json)*/
+
+    document.getElementById('winnerlist').innerHTML = 'Top 10 best players ever!'
     getWinners().then(
-        json => {
-            document.getElementById('winnerlist').innerHTML = ''
-            json.forEach(info => {
-                console.log(`adding ${info}`)
+        json => json.forEach(info => {
             const listElement = document.createElement('li')
             //determine winner name
             if (info.winner==='red'){
@@ -296,23 +264,11 @@ const addWinner = async (e) => {
             } else if (info.winner==='yellow'){
                 listElement.innerHTML = `Name: ${info.name2} (yellow), Score: ${info.score}`
                 document.getElementById('winnerlist').appendChild(listElement)
-            } else {
+            } /*else {
                 listElement.innerHTML = `No winner for this game`
                 document.getElementById('winnerlist').appendChild(listElement)
-            }
-            console.log('testing winner list')
+            }*/
         }
-        
-        )
-        })
+        ))
 
 }
-
-/*module.exports = {
-    sleep,
-    triggerAnimation,
-    takeTurn,
-    Reset,
-    getWinners,
-    addWinner
-}*/
