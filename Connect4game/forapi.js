@@ -29,6 +29,11 @@ forapi.get('/winner_get_data', (req, res) => {
 })
 
 forapi.post('/winner_data', (req, res) => {
+    if (typeof req.body != 'object' || req.body.winner === undefined){
+        res.status(400)
+        res.send('Error')
+        return
+    } 
     total_data.push(req.body)
     console.log(req.body)
     saveData(total_data)
